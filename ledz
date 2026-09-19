@@ -1,1 +1,1500 @@
-loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/12ea404111319282892841a0ae62192678a1e3916084c25a2028958659ba6345/download"))()
+local KEY = "LedZKey"
+local DISCORD = "https://discord.gg/DYMYt8ezzD"
+
+local KPlayers = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local UIS = game:GetService("UserInputService")
+local kp = KPlayers.LocalPlayer
+
+local keyParent = (gethui and gethui()) or game:GetService("CoreGui")
+
+local keyGui = Instance.new("ScreenGui")
+keyGui.Name = "LedZKeySystem"
+keyGui.ResetOnSpawn = false
+keyGui.IgnoreGuiInset = true
+keyGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+keyGui.DisplayOrder = 999999
+if syn and syn.protect_gui then pcall(syn.protect_gui, keyGui) end
+keyGui.Parent = keyParent
+
+local dim = Instance.new("Frame")
+dim.Size = UDim2.fromScale(1, 1)
+dim.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+dim.BackgroundTransparency = 1
+dim.BorderSizePixel = 0
+dim.Parent = keyGui
+
+local card = Instance.new("Frame")
+card.AnchorPoint = Vector2.new(0.5, 0.5)
+card.Position = UDim2.fromScale(0.5, 0.5)
+card.Size = UDim2.fromOffset(300, 320)
+card.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+card.BorderSizePixel = 0
+card.ClipsDescendants = true
+card.Parent = keyGui
+
+local cardCorner = Instance.new("UICorner")
+cardCorner.CornerRadius = UDim.new(0, 22)
+cardCorner.Parent = card
+
+local cardStroke = Instance.new("UIStroke")
+cardStroke.Color = Color3.fromRGB(255, 255, 255)
+cardStroke.Thickness = 1
+cardStroke.Transparency = 0.75
+cardStroke.Parent = card
+
+local closeBtn = Instance.new("TextButton")
+closeBtn.AnchorPoint = Vector2.new(1, 0)
+closeBtn.Position = UDim2.new(1, -16, 0, 16)
+closeBtn.Size = UDim2.fromOffset(30, 30)
+closeBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+closeBtn.BackgroundTransparency = 0.9
+closeBtn.Text = ""
+closeBtn.AutoButtonColor = false
+closeBtn.Parent = card
+
+local closeCorner = Instance.new("UICorner")
+closeCorner.CornerRadius = UDim.new(1, 0)
+closeCorner.Parent = closeBtn
+
+local xa = Instance.new("Frame")
+xa.AnchorPoint = Vector2.new(0.5, 0.5)
+xa.Position = UDim2.fromScale(0.5, 0.5)
+xa.Size = UDim2.fromOffset(13, 2)
+xa.Rotation = 45
+xa.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+xa.BorderSizePixel = 0
+xa.Parent = closeBtn
+
+local xaCorner = Instance.new("UICorner")
+xaCorner.CornerRadius = UDim.new(1, 0)
+xaCorner.Parent = xa
+
+local xb = Instance.new("Frame")
+xb.AnchorPoint = Vector2.new(0.5, 0.5)
+xb.Position = UDim2.fromScale(0.5, 0.5)
+xb.Size = UDim2.fromOffset(13, 2)
+xb.Rotation = -45
+xb.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+xb.BorderSizePixel = 0
+xb.Parent = closeBtn
+
+local xbCorner = Instance.new("UICorner")
+xbCorner.CornerRadius = UDim.new(1, 0)
+xbCorner.Parent = xb
+
+local title = Instance.new("TextLabel")
+title.BackgroundTransparency = 1
+title.Position = UDim2.new(0, 24, 0, 34)
+title.Size = UDim2.new(1, -70, 0, 24)
+title.Text = "LedZ Key System"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 20
+title.Font = Enum.Font.GothamBold
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = card
+
+local sub = Instance.new("TextLabel")
+sub.BackgroundTransparency = 1
+sub.Position = UDim2.new(0, 24, 0, 58)
+sub.Size = UDim2.new(1, -48, 0, 18)
+sub.Text = "Enter your key to continue"
+sub.TextColor3 = Color3.fromRGB(150, 150, 150)
+sub.TextSize = 13
+sub.Font = Enum.Font.Gotham
+sub.TextXAlignment = Enum.TextXAlignment.Left
+sub.Parent = card
+
+local boxHolder = Instance.new("Frame")
+boxHolder.Position = UDim2.new(0, 24, 0, 96)
+boxHolder.Size = UDim2.new(1, -48, 0, 44)
+boxHolder.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+boxHolder.BorderSizePixel = 0
+boxHolder.Parent = card
+
+local boxCorner = Instance.new("UICorner")
+boxCorner.CornerRadius = UDim.new(1, 0)
+boxCorner.Parent = boxHolder
+
+local boxStroke = Instance.new("UIStroke")
+boxStroke.Color = Color3.fromRGB(255, 255, 255)
+boxStroke.Thickness = 1
+boxStroke.Transparency = 0.7
+boxStroke.Parent = boxHolder
+
+local input = Instance.new("TextBox")
+input.BackgroundTransparency = 1
+input.Position = UDim2.new(0, 18, 0, 0)
+input.Size = UDim2.new(1, -36, 1, 0)
+input.PlaceholderText = "Key"
+input.PlaceholderColor3 = Color3.fromRGB(110, 110, 110)
+input.Text = ""
+input.TextColor3 = Color3.fromRGB(255, 255, 255)
+input.TextSize = 15
+input.Font = Enum.Font.GothamMedium
+input.ClearTextOnFocus = false
+input.TextXAlignment = Enum.TextXAlignment.Left
+input.Parent = boxHolder
+
+local status = Instance.new("TextLabel")
+status.BackgroundTransparency = 1
+status.Position = UDim2.new(0, 24, 0, 144)
+status.Size = UDim2.new(1, -48, 0, 16)
+status.Text = ""
+status.TextColor3 = Color3.fromRGB(255, 255, 255)
+status.TextSize = 12
+status.Font = Enum.Font.Gotham
+status.TextTransparency = 0.35
+status.TextXAlignment = Enum.TextXAlignment.Left
+status.Parent = card
+
+local continueBtn = Instance.new("TextButton")
+continueBtn.Position = UDim2.new(0, 24, 0, 168)
+continueBtn.Size = UDim2.new(1, -48, 0, 44)
+continueBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+continueBtn.Text = "Continue"
+continueBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+continueBtn.TextSize = 15
+continueBtn.Font = Enum.Font.GothamBold
+continueBtn.AutoButtonColor = false
+continueBtn.Parent = card
+
+local contCorner = Instance.new("UICorner")
+contCorner.CornerRadius = UDim.new(1, 0)
+contCorner.Parent = continueBtn
+
+local dcBtn = Instance.new("TextButton")
+dcBtn.AnchorPoint = Vector2.new(0.5, 0)
+dcBtn.Position = UDim2.new(0.5, 0, 0, 228)
+dcBtn.Size = UDim2.fromOffset(48, 48)
+dcBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+dcBtn.BackgroundTransparency = 0.88
+dcBtn.Text = ""
+dcBtn.AutoButtonColor = false
+dcBtn.Parent = card
+
+local dcCorner = Instance.new("UICorner")
+dcCorner.CornerRadius = UDim.new(1, 0)
+dcCorner.Parent = dcBtn
+
+local dcStroke = Instance.new("UIStroke")
+dcStroke.Color = Color3.fromRGB(255, 255, 255)
+dcStroke.Thickness = 1
+dcStroke.Transparency = 0.7
+dcStroke.Parent = dcBtn
+
+local mark = Instance.new("Frame")
+mark.AnchorPoint = Vector2.new(0.5, 0.5)
+mark.Position = UDim2.fromScale(0.5, 0.5)
+mark.Size = UDim2.fromOffset(28, 24)
+mark.BackgroundTransparency = 1
+mark.Parent = dcBtn
+
+local tailL = Instance.new("Frame")
+tailL.AnchorPoint = Vector2.new(0.5, 0.5)
+tailL.Position = UDim2.new(0.5, -9, 0.5, 8)
+tailL.Size = UDim2.fromOffset(9, 8)
+tailL.Rotation = 22
+tailL.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+tailL.BorderSizePixel = 0
+tailL.ZIndex = 2
+tailL.Parent = mark
+
+local tailLCorner = Instance.new("UICorner")
+tailLCorner.CornerRadius = UDim.new(0, 3)
+tailLCorner.Parent = tailL
+
+local tailR = Instance.new("Frame")
+tailR.AnchorPoint = Vector2.new(0.5, 0.5)
+tailR.Position = UDim2.new(0.5, 9, 0.5, 8)
+tailR.Size = UDim2.fromOffset(9, 8)
+tailR.Rotation = -22
+tailR.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+tailR.BorderSizePixel = 0
+tailR.ZIndex = 2
+tailR.Parent = mark
+
+local tailRCorner = Instance.new("UICorner")
+tailRCorner.CornerRadius = UDim.new(0, 3)
+tailRCorner.Parent = tailR
+
+local body = Instance.new("Frame")
+body.AnchorPoint = Vector2.new(0.5, 0.5)
+body.Position = UDim2.new(0.5, 0, 0.5, -1)
+body.Size = UDim2.fromOffset(26, 19)
+body.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+body.BorderSizePixel = 0
+body.ZIndex = 3
+body.Parent = mark
+
+local bodyCorner = Instance.new("UICorner")
+bodyCorner.CornerRadius = UDim.new(0, 9)
+bodyCorner.Parent = body
+
+local eyeL = Instance.new("Frame")
+eyeL.AnchorPoint = Vector2.new(0.5, 0.5)
+eyeL.Position = UDim2.new(0.5, -5, 0.5, 0)
+eyeL.Size = UDim2.fromOffset(5, 7)
+eyeL.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+eyeL.BorderSizePixel = 0
+eyeL.ZIndex = 4
+eyeL.Parent = body
+
+local eyeLCorner = Instance.new("UICorner")
+eyeLCorner.CornerRadius = UDim.new(1, 0)
+eyeLCorner.Parent = eyeL
+
+local eyeR = Instance.new("Frame")
+eyeR.AnchorPoint = Vector2.new(0.5, 0.5)
+eyeR.Position = UDim2.new(0.5, 5, 0.5, 0)
+eyeR.Size = UDim2.fromOffset(5, 7)
+eyeR.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+eyeR.BorderSizePixel = 0
+eyeR.ZIndex = 4
+eyeR.Parent = body
+
+local eyeRCorner = Instance.new("UICorner")
+eyeRCorner.CornerRadius = UDim.new(1, 0)
+eyeRCorner.Parent = eyeR
+
+local dcLabel = Instance.new("TextLabel")
+dcLabel.AnchorPoint = Vector2.new(0.5, 0)
+dcLabel.Position = UDim2.new(0.5, 0, 0, 282)
+dcLabel.Size = UDim2.new(1, -48, 0, 16)
+dcLabel.BackgroundTransparency = 1
+dcLabel.Text = "Get Key"
+dcLabel.TextColor3 = Color3.fromRGB(160, 160, 160)
+dcLabel.TextSize = 12
+dcLabel.Font = Enum.Font.Gotham
+dcLabel.Parent = card
+
+card.Size = UDim2.fromOffset(300, 0)
+card.BackgroundTransparency = 1
+TweenService:Create(dim, TweenInfo.new(0.25), {BackgroundTransparency = 0.45}):Play()
+TweenService:Create(card, TweenInfo.new(0.35, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.fromOffset(300, 320), BackgroundTransparency = 0}):Play()
+
+local dragging, dragStart, startPos = false, nil, nil
+card.InputBegan:Connect(function(i)
+    if i.UserInputType == Enum.UserInputType.MouseButton1 or i.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = i.Position
+        startPos = card.Position
+        i.Changed:Connect(function()
+            if i.UserInputState == Enum.UserInputState.End then dragging = false end
+        end)
+    end
+end)
+
+UIS.InputChanged:Connect(function(i)
+    if dragging and (i.UserInputType == Enum.UserInputType.MouseMovement or i.UserInputType == Enum.UserInputType.Touch) then
+        local d = i.Position - dragStart
+        card.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + d.X, startPos.Y.Scale, startPos.Y.Offset + d.Y)
+    end
+end)
+
+local function shake()
+    local base = card.Position
+    for i = 1, 6 do
+        card.Position = base + UDim2.fromOffset((i % 2 == 0) and 7 or -7, 0)
+        task.wait(0.03)
+    end
+    card.Position = base
+end
+
+local function closeKey()
+    TweenService:Create(dim, TweenInfo.new(0.2), {BackgroundTransparency = 1}):Play()
+    local t = TweenService:Create(card, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.In), {Size = UDim2.fromOffset(300, 0), BackgroundTransparency = 1})
+    t:Play()
+    t.Completed:Wait()
+    keyGui:Destroy()
+end
+
+closeBtn.MouseButton1Click:Connect(closeKey)
+
+dcBtn.MouseButton1Click:Connect(function()
+    TweenService:Create(dcBtn, TweenInfo.new(0.12), {BackgroundTransparency = 0.7}):Play()
+    task.delay(0.15, function()
+        TweenService:Create(dcBtn, TweenInfo.new(0.15), {BackgroundTransparency = 0.88}):Play()
+    end)
+    pcall(function() setclipboard(DISCORD) end)
+    pcall(function() game:GetService("GuiService"):OpenBrowserWindow(DISCORD) end)
+    dcLabel.Text = "Link copied"
+    task.delay(2, function() dcLabel.Text = "Get Key" end)
+end)
+
+local function launch()
+
+local S = STATE or {
+    onCleanup = function() end,
+    connect = function(sig, fn) return sig:Connect(fn) end,
+    alive = function() return true end,
+}
+
+local Players           = game:GetService("Players")
+local RunService        = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService  = game:GetService("UserInputService")
+
+local LP = Players.LocalPlayer
+
+local R = {
+    KickBall        = ReplicatedStorage:WaitForChild("KickBall", 10),
+    KickBallEvent   = ReplicatedStorage:WaitForChild("KickBallEvent", 10),
+    DropBallEvent   = ReplicatedStorage:WaitForChild("DropBallEvent", 10),
+    GoalEvent       = ReplicatedStorage:WaitForChild("GoalEvent", 10),
+    UpdateWalkSpeed = ReplicatedStorage:WaitForChild("UpdateWalkSpeed", 10),
+}
+local PASS = "dihteikds"
+local ZERO = Vector3.new(0, 0, 0)
+
+local GOAL_A_X = -313.13
+local GOAL_B_X = -115.936
+
+local C = {}
+local function refreshConstants()
+    local ff = workspace:FindFirstChild("FootballField")
+    local mode = 1
+    if ff then
+        local m = ff:FindFirstChild("SoccerGameMode")
+        if m then mode = m.Value end
+    end
+    local u80, u81, u82, u78, u79 = 0, 0, 0.55, 5.473, 55
+    if mode == 2 then
+        u80, u81, u82 = 2.2, 2.2, 0.5
+    elseif mode == 3 then
+        u81, u82, u78, u79 = 6.4, 0.6, u78 + 0.5, 45
+    elseif mode == 4 then
+        u80, u81, u82 = 2.2, 2.2, 0.6
+    end
+    C.mode    = mode
+    C.gravity = u79
+    C.floor   = u78
+    C.zMin    = u80 + 78.036
+    C.zMax    = 107.715 - u80
+    C.barY    = u81 + 18
+    C.goalY   = u81 + 17
+end
+refreshConstants()
+
+local envChar, envCache
+local function getEnv()
+    local char = LP.Character
+    if not char or not char.Parent then return nil end
+    if envChar == char and envCache then return envCache end
+    local bh = char:FindFirstChild("BallHandler")
+    if not bh then return nil end
+    local ok, e = pcall(getsenv, bh)
+    if not ok or type(e) ~= "table" or type(e.startAnimation) ~= "function" then return nil end
+    envChar, envCache = char, e
+    refreshConstants()
+    return e
+end
+
+local function ups(env)
+    local ok, t = pcall(debug.getupvalues, env.touchDetect)
+    return ok and t or nil
+end
+
+local function getBall()
+    local env = getEnv()
+    if env then
+        local u = ups(env)
+        if u and typeof(u[2]) == "Instance" and u[2].Parent then return u[2] end
+    end
+    local ff = workspace:FindFirstChild("FootballField")
+    local b = ff and ff:FindFirstChild("SoccerBall")
+    if b and b.Parent then return b end
+    return nil
+end
+
+local function getPing()
+    local env = getEnv()
+    if env then
+        local u = ups(env)
+        if u and type(u[8]) == "number" then return u[8] end
+    end
+    return 0.05
+end
+
+local function suppressVanillaKick()
+    local env = getEnv()
+    if env then pcall(debug.setupvalue, env.touchDetect, 3, tick()) end
+end
+
+local cfg = {
+    autoGoal   = false,
+    forceKick  = false,
+    legitPower = false,
+    power      = 380,
+    kickDelay  = 0.65,
+    sideMode   = "Auto (use my team)",
+
+    afkFarm     = false,
+    farmDelay   = 0,
+    farmTimeout = 4.0,
+    antiAfk     = true,
+    autoRejoin  = true,
+
+    magnet     = false,
+    magnetDist = 2.4,
+
+    sprint     = false,
+    speedHack  = false,
+    speedValue = 16,
+
+    espBall    = true,
+    espPredict = true,
+    espPlayers = false,
+    espTracer  = false,
+
+    touchBar   = UserInputService.TouchEnabled,
+}
+
+local stats = { kicks = 0, refused = 0, goals = 0, attempts = 0, rejoins = 0, lastMsg = "idle" }
+
+local function num(v, fallback)
+    return tonumber(v) or fallback
+end
+
+local function myTeamName()
+    local c = LP.Character
+    local t = c and c:FindFirstChild("Team")
+    return t and t.Value or ""
+end
+
+local function hasTeam()
+    local t = myTeamName()
+    return t ~= ""
+end
+
+local PITCH = { xMin = -313.13, xMax = -115.936, zMin = 23.443, zMax = 161.748 }
+local function onPitch()
+    local c = LP.Character
+    local hrp = c and c:FindFirstChild("HumanoidRootPart")
+    if not hrp then return false end
+    local p = hrp.Position
+    return p.X >= PITCH.xMin and p.X <= PITCH.xMax
+        and p.Z >= PITCH.zMin and p.Z <= PITCH.zMax
+end
+
+local rejoining = false
+local function rejoinPitch()
+    if rejoining then return false end
+    rejoining = true
+    local ok = false
+    local jp = workspace:FindFirstChild("JoinPortal")
+    local ch = LP.Character
+    local hrp = ch and ch:FindFirstChild("HumanoidRootPart")
+    local hum = ch and ch:FindFirstChildOfClass("Humanoid")
+    if jp and hrp and hum then
+        local p = jp.Position
+        hrp.CFrame = CFrame.new(p + Vector3.new(0, 2.5, -7))
+        task.wait(0.4)
+        hum:MoveTo(p + Vector3.new(0, 0, 12))
+        local t0 = tick()
+        while tick() - t0 < 6 do
+            if hasTeam() then ok = true break end
+            if tick() - t0 > 2 then hum:MoveTo(p + Vector3.new(0, 0, 12)) end
+            task.wait(0.15)
+        end
+    end
+    rejoining = false
+    return ok
+end
+
+local function myLetter()
+    if cfg.sideMode == "Attack goal B (score as A)" then return "A" end
+    if cfg.sideMode == "Attack goal A (score as B)" then return "B" end
+    local a = ReplicatedStorage:FindFirstChild("NameTeamA")
+    if a and myTeamName() == a.Value then return "A" end
+    return "B"
+end
+
+local function targetPlaneX(letter)
+    return (letter == "A") and GOAL_B_X or GOAL_A_X
+end
+
+local function scoreOf(letter)
+    local v = ReplicatedStorage:FindFirstChild((letter == "A") and "ScoreTeamA" or "ScoreTeamB")
+    return v and v.Value or 0
+end
+
+local lastAccept = 0
+if R.KickBallEvent then
+    S.connect(R.KickBallEvent.OnClientEvent, function(plr)
+        if typeof(plr) == "Instance" and plr:IsA("Player") and plr == LP then
+            lastAccept = tick()
+        end
+    end)
+end
+
+local ballRespawned = 0
+if R.DropBallEvent then
+    S.connect(R.DropBallEvent.OnClientEvent, function()
+        ballRespawned = tick()
+    end)
+end
+
+local function launchFor(P, aim, speed, g)
+    local dx, dz = aim.X - P.X, aim.Z - P.Z
+    local dh = math.sqrt(dx * dx + dz * dz)
+    if dh < 0.001 then return nil end
+    local t = dh / speed
+    return Vector3.new(dx / t, (aim.Y - P.Y) / t + 0.5 * g * t, dz / t)
+end
+
+local function keeperZ(letter)
+    local gx = targetPlaneX(letter)
+    local mine = myTeamName()
+    local bestZ, bestD = nil, math.huge
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= LP then
+            local c = p.Character
+            local hrp = c and c:FindFirstChild("HumanoidRootPart")
+            local tv = c and c:FindFirstChild("Team")
+            if hrp and (not tv or tv.Value ~= mine) then
+                local d = math.abs(hrp.Position.X - gx)
+                if d < bestD then bestD, bestZ = d, hrp.Position.Z end
+            end
+        end
+    end
+    if bestD > 45 then return nil end
+    return bestZ
+end
+
+local function aimPoints(letter)
+    local planeX = targetPlaneX(letter)
+    local aimX = (letter == "A") and (planeX + 5) or (planeX - 5)
+    local zLo, zHi = C.zMin + 4.5, C.zMax - 4.5
+    local zc = (C.zMin + C.zMax) * 0.5
+
+    local first, second = zLo, zHi
+    local kz = keeperZ(letter)
+    if kz and math.abs(kz - zHi) > math.abs(kz - zLo) then first, second = zHi, zLo end
+
+    return {
+        Vector3.new(aimX, C.floor + 1.5, first),
+        Vector3.new(aimX, C.floor + 4.0, first),
+        Vector3.new(aimX, C.floor + 1.5, second),
+        Vector3.new(aimX, C.floor + 2.0, zc),
+        Vector3.new(aimX, C.goalY - 4.0, zc),
+    }
+end
+
+local function solveGoalKick(P, letter)
+    local env = getEnv()
+    if not env or type(env.recordBallAnimation) ~= "function" then return nil end
+
+    local speeds
+    if cfg.legitPower then
+        speeds = { 85, 78, 68, 58, 48 }
+    else
+        local p = num(cfg.power, 380)
+        speeds = { p, p * 0.75, p * 0.55, 160, 120, 95, 85, 70 }
+    end
+
+    local budget = 12
+    for _, aim in ipairs(aimPoints(letter)) do
+        for _, sp in ipairs(speeds) do
+            if budget <= 0 then return nil end
+            local vel = launchFor(P, aim, sp, C.gravity)
+            if vel then
+                local legal = true
+                if cfg.legitPower then
+                    legal = vel.Y <= 40 and Vector3.new(vel.X, 0, vel.Z).Magnitude <= 85
+                end
+                if legal then
+                    budget -= 1
+                    local ok, _, _, _, _, side = pcall(env.recordBallAnimation, P, vel, ZERO)
+                    if ok and side == letter then return vel end
+                end
+            end
+        end
+    end
+    return nil
+end
+
+local function amClosest(ballPos)
+    local env = getEnv()
+    if env and type(env.getClosestPlayerName) == "function" then
+        local ok, n = pcall(env.getClosestPlayerName)
+        if ok and type(n) == "string" then return n == LP.Name end
+    end
+    local best, bestD = nil, math.huge
+    for _, p in ipairs(Players:GetPlayers()) do
+        local c = p.Character
+        local hrp = c and c:FindFirstChild("HumanoidRootPart")
+        if hrp then
+            local d = (hrp.Position - ballPos).Magnitude
+            if d < bestD then best, bestD = p.Name, d end
+        end
+    end
+    return best == LP.Name
+end
+
+local lastKick = 0
+
+local function magnetTo(ball)
+    local char = LP.Character
+    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+    if not hrp or not ball or not ball.Parent then return end
+    local letter = myLetter()
+    local zc = (C.zMin + C.zMax) * 0.5
+    local toGoal = Vector3.new(targetPlaneX(letter) - ball.Position.X, 0, zc - ball.Position.Z)
+    if toGoal.Magnitude < 0.01 then toGoal = Vector3.new(1, 0, 0) end
+    toGoal = toGoal.Unit
+    local standY = math.min(ball.Position.Y, C.floor) + 1.1
+    local stand = ball.Position - toGoal * num(cfg.magnetDist, 2.4)
+    stand = Vector3.new(stand.X, standY, stand.Z)
+    hrp.CFrame = CFrame.lookAt(stand, Vector3.new(ball.Position.X, standY, ball.Position.Z))
+end
+
+local function ballGrounded(ball)
+    return ball and ball.Parent and ball.Position.Y <= C.floor + 0.75
+end
+
+local function shoot(ball, env)
+    local char = LP.Character
+    local torso = char and (char:FindFirstChild("UpperTorso") or char:FindFirstChild("HumanoidRootPart"))
+    if not torso or not ball or not ball.Parent then return false end
+
+    if not hasTeam() then
+        stats.lastMsg = "no team - goal would not count"
+        return false
+    end
+
+    local P = ball.Position
+    local letter = myLetter()
+    local vel = solveGoalKick(P, letter)
+    if not vel then
+        stats.lastMsg = "no solution from here"
+        return false
+    end
+
+    local dist = (P - torso.Position).Magnitude
+    lastKick = tick()
+
+    pcall(function()
+        R.KickBall:FireServer(P, vel, ZERO, math.clamp(dist, 0.02, 4), PASS)
+    end)
+    pcall(env.startAnimation, P, vel, ZERO, ZERO, getPing())
+    pcall(debug.setupvalue, env.touchDetect, 3, tick())
+
+    stats.kicks += 1
+    stats.lastMsg = ("shot -> goal %s @ %d sps"):format(letter, math.floor(vel.Magnitude))
+    return true
+end
+
+local function acquire(timeout, stillWanted)
+    local t0 = tick()
+    while tick() - t0 < timeout and S.alive() do
+        if stillWanted and not stillWanted() then return nil end
+        local ball = getBall()
+        if ball then
+            magnetTo(ball)
+            suppressVanillaKick()
+            if amClosest(ball.Position) then return ball end
+        end
+        task.wait()
+    end
+    return nil
+end
+
+local function kickAccepted(kickTime, timeout)
+    local t0 = tick()
+    while tick() - t0 < (timeout or 0.8) do
+        if lastAccept >= kickTime then return true end
+        task.wait(0.05)
+    end
+    return false
+end
+
+local snapping = false
+local function snapGoal()
+    if snapping then return end
+    snapping = true
+    task.spawn(function()
+        stats.attempts += 1
+        local env = getEnv()
+        local ball = env and acquire(3)
+        local fired = false
+        if ball and env then fired = shoot(ball, env) end
+        if not fired then stats.lastMsg = "snap failed - never got possession" end
+        snapping = false
+    end)
+end
+
+local farmThread
+
+local teamlessSince = 0
+
+local function farmAttempt()
+    local env = getEnv()
+    local char = LP.Character
+    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+    if not env or not hrp then
+        stats.lastMsg = "farm: waiting for character"
+        task.wait(0.5)
+        return
+    end
+
+    if not hasTeam() then
+        if teamlessSince == 0 then teamlessSince = tick() end
+        local waited = tick() - teamlessSince
+        if cfg.autoRejoin and (not onPitch() or waited > 6) then
+            stats.lastMsg = "farm: no team - walking back through JoinPortal"
+            if rejoinPitch() then
+                teamlessSince = 0
+                stats.rejoins += 1
+                stats.lastMsg = "farm: back on team " .. myTeamName()
+            else
+                stats.lastMsg = "farm: no team - match full, waiting for next one"
+                task.wait(1.5)
+            end
+        else
+            stats.lastMsg = ("farm: no team (%.0fs) - waiting"):format(waited)
+            task.wait(0.5)
+        end
+        return
+    end
+    teamlessSince = 0
+
+    if not getBall() then
+        stats.lastMsg = "farm: waiting for ball"
+        task.wait(0.25)
+        return
+    end
+
+    local letter = myLetter()
+    local before = scoreOf(letter)
+    stats.attempts += 1
+
+    local ball
+    local t0 = tick()
+    while tick() - t0 < 8 and cfg.afkFarm and S.alive() do
+        ball = getBall()
+        if ball then
+            magnetTo(ball)
+            suppressVanillaKick()
+            if ballGrounded(ball) and amClosest(ball.Position) then break end
+        end
+        ball = nil
+        task.wait()
+    end
+    if not ball then
+        stats.lastMsg = "farm: ball never settled, retrying"
+        return
+    end
+
+    task.wait(0.05)
+    ball = getBall()
+    if not ball or not ballGrounded(ball) or not amClosest(ball.Position) then
+        stats.lastMsg = "farm: lost the ball, retrying"
+        return
+    end
+
+    local kickAt = tick()
+    if not shoot(ball, env) then
+        task.wait(0.2)
+        return
+    end
+
+    if not kickAccepted(kickAt, 0.9) then
+        stats.refused += 1
+        stats.lastMsg = "farm: server refused the kick, backing off"
+        task.wait(0.35)
+        return
+    end
+
+    local t0 = tick()
+    while tick() - t0 < num(cfg.farmTimeout, 4) and cfg.afkFarm and S.alive() do
+        local now = scoreOf(letter)
+        if now > before then
+            stats.goals += 1
+            stats.lastMsg = ("farm: GOAL  (%d scored / %d tries)"):format(stats.goals, stats.attempts)
+            local w = tick()
+            while cfg.afkFarm and tick() - w < 10 and getBall() do task.wait(0.05) end
+            w = tick()
+            while cfg.afkFarm and tick() - w < 10 and not getBall() do task.wait(0.05) end
+            if num(cfg.farmDelay, 0) > 0 then task.wait(num(cfg.farmDelay, 0)) end
+            return
+        elseif now < before then
+            stats.lastMsg = "farm: match reset"
+            return
+        end
+        if ballRespawned > kickAt then
+            stats.lastMsg = "farm: ball reset without a goal, retrying"
+            return
+        end
+        task.wait(0.1)
+    end
+    stats.lastMsg = "farm: shot did not land, retrying"
+end
+
+local function startFarm()
+    if farmThread then return end
+    farmThread = task.spawn(function()
+        while cfg.afkFarm and S.alive() do
+            local ok, err = pcall(farmAttempt)
+            if not ok then
+                stats.lastMsg = "farm error: " .. tostring(err)
+                task.wait(0.5)
+            end
+            task.wait(0.05)
+        end
+        farmThread = nil
+        if not cfg.afkFarm then stats.lastMsg = "farm stopped" end
+    end)
+end
+
+S.connect(LP.Idled, function()
+    if not cfg.antiAfk then return end
+    pcall(function()
+        local vu = game:GetService("VirtualUser")
+        vu:CaptureController()
+        vu:ClickButton2(Vector2.new(0, 0))
+    end)
+end)
+
+local lastSpeedPush = 0
+local function applySpeed()
+    local char = LP.Character
+    local hum = char and char:FindFirstChildOfClass("Humanoid")
+    if not hum then return end
+    if cfg.speedHack then
+        hum.WalkSpeed = num(cfg.speedValue, 16)
+    elseif cfg.sprint then
+        hum.WalkSpeed = 23
+    else
+        return
+    end
+    if tick() - lastSpeedPush >= 0.25 and R.UpdateWalkSpeed and char then
+        lastSpeedPush = tick()
+        pcall(function()
+            R.UpdateWalkSpeed:FireServer(char.Name, math.min(hum.WalkSpeed, 23), PASS)
+        end)
+    end
+end
+
+local function doAutoGoal()
+    if tick() - lastKick < num(cfg.kickDelay, 0.65) then return end
+    local env = getEnv(); if not env then return end
+    local ball = getBall(); if not ball then return end
+    local char = LP.Character
+    local torso = char and (char:FindFirstChild("UpperTorso") or char:FindFirstChild("HumanoidRootPart"))
+    if not torso then return end
+
+    if not cfg.forceKick then
+        if (ball.Position - torso.Position).Magnitude > 4 then return end
+        if not amClosest(ball.Position) then return end
+    end
+    shoot(ball, env)
+end
+
+pcall(cleardrawcache)
+
+local drawings = {}
+local function mk(class, props)
+    local d = Drawing.new(class)
+    for k, v in pairs(props) do d[k] = v end
+    drawings[#drawings + 1] = d
+    return d
+end
+
+local ballRing = mk("Circle", { Thickness = 2, Radius = 14, Filled = false,
+    Color = Color3.fromRGB(255, 220, 90), Transparency = 1, Visible = false })
+local ballText = mk("Text", { Size = 14, Center = true, Outline = true,
+    Color = Color3.fromRGB(255, 220, 90), Transparency = 1, Visible = false })
+local predRing = mk("Circle", { Thickness = 2, Radius = 9, Filled = false,
+    Color = Color3.fromRGB(120, 255, 160), Transparency = 0.9, Visible = false })
+local tracer = mk("Line", { Thickness = 1, Color = Color3.fromRGB(255, 220, 90),
+    Transparency = 0.7, Visible = false })
+
+local pool = {}
+for i = 1, 18 do
+    pool[i] = {
+        box  = mk("Square", { Thickness = 1, Filled = false, Transparency = 1, Visible = false }),
+        name = mk("Text", { Size = 13, Center = true, Outline = true, Transparency = 1, Visible = false }),
+    }
+end
+
+local function hideAll()
+    ballRing.Visible = false
+    ballText.Visible = false
+    predRing.Visible = false
+    tracer.Visible   = false
+    for _, e in ipairs(pool) do e.box.Visible = false; e.name.Visible = false end
+end
+
+local function predictLanding(pos, vel)
+    local g = C.gravity
+    local y0 = math.max(pos.Y - C.floor, 0)
+    local disc = vel.Y * vel.Y + 2 * g * y0
+    if disc < 0 then return nil end
+    local t = (vel.Y + math.sqrt(disc)) / g
+    if t <= 0.02 or t > 12 then return nil end
+    return Vector3.new(pos.X + vel.X * t, C.floor, pos.Z + vel.Z * t)
+end
+
+local function drawESP()
+    local cam = workspace.CurrentCamera
+    if not cam then hideAll(); return end
+    local vs = cam.ViewportSize
+
+    local ball = getBall()
+    if cfg.espBall and ball then
+        local sp, on = cam:WorldToViewportPoint(ball.Position)
+        if on then
+            ballRing.Position = Vector2.new(sp.X, sp.Y)
+            ballRing.Radius   = math.clamp(220 / math.max(sp.Z, 1), 5, 40)
+            ballRing.Visible  = true
+            ballText.Position = Vector2.new(sp.X, sp.Y + ballRing.Radius + 3)
+            ballText.Text     = ("BALL  %dm  %d sps"):format(
+                (ball.Position - cam.CFrame.Position).Magnitude, ball.Velocity.Magnitude)
+            ballText.Visible  = true
+            tracer.Visible = cfg.espTracer
+            if cfg.espTracer then
+                tracer.From = Vector2.new(vs.X * 0.5, vs.Y)
+                tracer.To   = Vector2.new(sp.X, sp.Y)
+            end
+        else
+            ballRing.Visible = false; ballText.Visible = false; tracer.Visible = false
+        end
+
+        if cfg.espPredict then
+            local land = predictLanding(ball.Position, ball.Velocity)
+            if land then
+                local lp, lon = cam:WorldToViewportPoint(land)
+                predRing.Visible = lon
+                if lon then
+                    predRing.Position = Vector2.new(lp.X, lp.Y)
+                    predRing.Radius   = math.clamp(160 / math.max(lp.Z, 1), 4, 26)
+                end
+            else
+                predRing.Visible = false
+            end
+        else
+            predRing.Visible = false
+        end
+    else
+        ballRing.Visible = false; ballText.Visible = false
+        predRing.Visible = false; tracer.Visible = false
+    end
+
+    if not cfg.espPlayers then
+        for _, e in ipairs(pool) do e.box.Visible = false; e.name.Visible = false end
+        return
+    end
+
+    local mine = myTeamName()
+    local i = 0
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= LP and i < #pool then
+            local c = p.Character
+            local hrp = c and c:FindFirstChild("HumanoidRootPart")
+            if hrp then
+                local head, hon = cam:WorldToViewportPoint(hrp.Position + Vector3.new(0, 3, 0))
+                local feet      = cam:WorldToViewportPoint(hrp.Position - Vector3.new(0, 3, 0))
+                if hon then
+                    i += 1
+                    local e = pool[i]
+                    local h = math.abs(feet.Y - head.Y)
+                    local w = h * 0.55
+                    local tv = c:FindFirstChild("Team")
+                    local col = (tv and tv.Value == mine)
+                        and Color3.fromRGB(110, 230, 130) or Color3.fromRGB(255, 105, 105)
+                    e.box.Position = Vector2.new(head.X - w * 0.5, head.Y)
+                    e.box.Size     = Vector2.new(w, h)
+                    e.box.Color    = col
+                    e.box.Visible  = true
+                    e.name.Position = Vector2.new(head.X, head.Y - 15)
+                    e.name.Text     = p.Name
+                    e.name.Color    = col
+                    e.name.Visible  = true
+                end
+            end
+        end
+    end
+    for j = i + 1, #pool do
+        pool[j].box.Visible = false
+        pool[j].name.Visible = false
+    end
+end
+
+S.connect(RunService.RenderStepped, function()
+    if cfg.autoGoal and not cfg.afkFarm then
+        suppressVanillaKick()
+        pcall(doAutoGoal)
+    end
+    if cfg.magnet and not snapping and not cfg.afkFarm then
+        local b = getBall()
+        if b then pcall(magnetTo, b) end
+    end
+    if cfg.sprint or cfg.speedHack then pcall(applySpeed) end
+    pcall(drawESP)
+end)
+
+S.connect(LP.CharacterAdded, function()
+    envChar, envCache = nil, nil
+    task.delay(2, refreshConstants)
+end)
+
+local prev = getgenv().LedZTF
+if prev then
+    pcall(function() if prev.Fluent then prev.Fluent:Destroy() end end)
+    pcall(function() if prev.Bar then prev.Bar:Destroy() end end)
+end
+
+local okLoad, Fluent = pcall(function()
+    return loadstring(game:HttpGet(
+        "https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+end)
+if not okLoad or not Fluent then
+    error("Fluent failed to load: " .. tostring(Fluent))
+end
+
+local vp = workspace.CurrentCamera and workspace.CurrentCamera.ViewportSize or Vector2.new(1280, 720)
+local small = vp.X < 900
+local winW = math.clamp(math.floor(vp.X * 0.88), 300, 560)
+local winH = math.clamp(math.floor(vp.Y * 0.80), 250, 440)
+
+local Window = Fluent:CreateWindow({
+    Title       = "LedZ Touch Football",
+    SubTitle    = "client-side ball engine",
+    TabWidth    = small and 104 or 140,
+    Size        = UDim2.fromOffset(winW, winH),
+    Acrylic     = false,
+    Theme       = "Darker",
+    MinimizeKey = Enum.KeyCode.RightControl,
+})
+
+local Tabs = {
+    Farm   = Window:AddTab({ Title = "Farm",     Icon = "repeat" }),
+    Main   = Window:AddTab({ Title = "Scoring",  Icon = "target" }),
+    Move   = Window:AddTab({ Title = "Movement", Icon = "move" }),
+    Visual = Window:AddTab({ Title = "Visuals",  Icon = "eye" }),
+    Info   = Window:AddTab({ Title = "Info",     Icon = "info" }),
+}
+local Options = Fluent.Options
+
+Tabs.Farm:AddToggle("AfkFarm", {
+    Title = "AFK Goal Farm",
+    Description = "Wins the ball, scores, waits for the restart, scores again. Forever.",
+    Default = false,
+    Callback = function(v)
+        cfg.afkFarm = v
+        if v then startFarm() else stats.lastMsg = "farm stopping" end
+    end,
+})
+
+local farmPara = Tabs.Farm:AddParagraph({ Title = "Farm counters", Content = "not running" })
+
+Tabs.Farm:AddToggle("AutoRejoin", {
+    Title = "Auto rejoin team",
+    Description = "When the server drops you off the team between matches, walk back through "
+        .. "JoinPortal instead of standing on the pitch as a spectator.",
+    Default = true,
+    Callback = function(v) cfg.autoRejoin = v end,
+})
+
+Tabs.Farm:AddSlider("FarmDelay", {
+    Title = "Extra pause after a goal",
+    Description = "Leave at 0. The farm waits on the ball itself, not a timer - raise this only "
+        .. "if you want to look slower.",
+    Default = 0, Min = 0, Max = 8, Rounding = 1,
+    Callback = function(v) cfg.farmDelay = num(v, 0) end,
+})
+
+Tabs.Farm:AddSlider("FarmTimeout", {
+    Title = "Give up on a shot after",
+    Description = "Seconds to watch the scoreboard before retrying.",
+    Default = 4, Min = 1.5, Max = 12, Rounding = 1,
+    Callback = function(v) cfg.farmTimeout = num(v, 4) end,
+})
+
+Tabs.Farm:AddToggle("AntiAfk", {
+    Title = "Anti-AFK",
+    Description = "Stops Roblox disconnecting you for idling. Leave this on while farming.",
+    Default = true,
+    Callback = function(v) cfg.antiAfk = v end,
+})
+
+Tabs.Farm:AddButton({
+    Title = "Reset counters",
+    Callback = function()
+        stats.goals, stats.attempts, stats.kicks, stats.refused = 0, 0, 0, 0
+    end,
+})
+
+Tabs.Main:AddToggle("AutoGoal", {
+    Title = "Auto Goal",
+    Description = "Shoots whenever you happen to be on the ball. Paused while the farm runs.",
+    Default = false,
+    Callback = function(v)
+        cfg.autoGoal = v
+        if not v then stats.lastMsg = "idle" end
+    end,
+})
+
+Tabs.Main:AddButton({
+    Title = "Snap Goal",
+    Description = "One attempt right now: grab the ball, wait for possession, fire.",
+    Callback = function() snapGoal() end,
+})
+
+Tabs.Main:AddSlider("Power", {
+    Title = "Shot power",
+    Description = "Studs/sec. Higher = shorter flight = less chance a keeper touches it first.",
+    Default = 380, Min = 90, Max = 900, Rounding = 0,
+    Callback = function(v) cfg.power = num(v, 380) end,
+})
+
+Tabs.Main:AddSlider("KickDelay", {
+    Title = "Auto Goal cooldown",
+    Default = 0.65, Min = 0.35, Max = 3, Rounding = 2,
+    Callback = function(v) cfg.kickDelay = num(v, 0.65) end,
+})
+
+Tabs.Main:AddToggle("ForceKick", {
+    Title = "Ignore possession check",
+    Description = "Shoot without owning the ball. The server refuses these - leave it off.",
+    Default = false,
+    Callback = function(v) cfg.forceKick = v end,
+})
+
+Tabs.Main:AddToggle("LegitPower", {
+    Title = "Legit power cap",
+    Description = "Keeps shots inside what a real touch produces (85 flat / 40 up).",
+    Default = false,
+    Callback = function(v) cfg.legitPower = v end,
+})
+
+Tabs.Main:AddDropdown("SideOverride", {
+    Title = "Target goal",
+    Description = "Auto compares your Team value against NameTeamA every shot.",
+    Values = { "Auto (use my team)", "Attack goal B (score as A)", "Attack goal A (score as B)" },
+    Multi = false,
+    Default = 1,
+}):OnChanged(function(v) cfg.sideMode = v end)
+
+Tabs.Move:AddToggle("Magnet", {
+    Title = "Ball Magnet",
+    Description = "Parks you behind the ball facing the enemy goal. The farm does this itself.",
+    Default = false,
+    Callback = function(v) cfg.magnet = v end,
+})
+
+Tabs.Move:AddSlider("MagnetDist", {
+    Title = "Magnet standoff",
+    Default = 2.4, Min = 1.5, Max = 3.8, Rounding = 1,
+    Callback = function(v) cfg.magnetDist = num(v, 2.4) end,
+})
+
+Tabs.Move:AddToggle("Sprint", {
+    Title = "Instant Max Power (23)",
+    Description = "Skips the run-up so normal kicks are always full power.",
+    Default = false,
+    Callback = function(v) cfg.sprint = v end,
+})
+
+Tabs.Move:AddToggle("SpeedHack", {
+    Title = "Speed Hack",
+    Description = "Above 23 the game's own kick stops working - the script's shots still fire.",
+    Default = false,
+    Callback = function(v)
+        cfg.speedHack = v
+        if not v then
+            local c = LP.Character
+            local h = c and c:FindFirstChildOfClass("Humanoid")
+            if h then h.WalkSpeed = 16 end
+        end
+    end,
+})
+
+Tabs.Move:AddSlider("SpeedValue", {
+    Title = "WalkSpeed",
+    Default = 16, Min = 16, Max = 120, Rounding = 0,
+    Callback = function(v) cfg.speedValue = num(v, 16) end,
+})
+
+Tabs.Move:AddButton({
+    Title = "Teleport to ball",
+    Callback = function()
+        local b, c = getBall(), LP.Character
+        local hrp = c and c:FindFirstChild("HumanoidRootPart")
+        if b and hrp then hrp.CFrame = CFrame.new(b.Position + Vector3.new(0, 3, 0)) end
+    end,
+})
+
+Tabs.Visual:AddToggle("EspBall", { Title = "Ball marker", Default = true,
+    Callback = function(v) cfg.espBall = v end })
+Tabs.Visual:AddToggle("EspPredict", { Title = "Landing prediction", Default = true,
+    Callback = function(v) cfg.espPredict = v end })
+Tabs.Visual:AddToggle("EspTracer", { Title = "Ball tracer", Default = false,
+    Callback = function(v) cfg.espTracer = v end })
+Tabs.Visual:AddToggle("EspPlayers", { Title = "Player ESP",
+    Description = "Boxes and names. Costs frames.", Default = false,
+    Callback = function(v) cfg.espPlayers = v end })
+Tabs.Visual:AddToggle("TouchBar", {
+    Title = "Mobile touch bar",
+    Description = "Draggable on-screen buttons. On automatically when the device has touch.",
+    Default = UserInputService.TouchEnabled,
+    Callback = function(v)
+        cfg.touchBar = v
+        local g = getgenv().LedZTF
+        if g and g.Bar then g.Bar.Enabled = v end
+    end,
+})
+
+local statusPara = Tabs.Info:AddParagraph({ Title = "Status", Content = "loading..." })
+
+Tabs.Info:AddParagraph({
+    Title = "Controls",
+    Content = "Touch bar: MENU / AUTO / MAG / SNAP / FARM - drag it anywhere.\n\n"
+        .. "Keyboard:\n"
+        .. "Right Alt  -  Auto Goal\n"
+        .. "Right Shift  -  Ball Magnet\n"
+        .. "V  -  Snap Goal\n"
+        .. "Insert  -  AFK Farm\n"
+        .. "Right Ctrl  -  minimise window\n"
+        .. "Delete  -  unload",
+})
+
+Tabs.Info:AddParagraph({
+    Title = "How the farm knows it worked",
+    Content = "Every kick the server ACCEPTS is echoed back to all clients as KickBallEvent "
+        .. "carrying your player. The farm waits for that echo - no echo means the kick was "
+        .. "refused and it retries straight away instead of standing there. Once accepted it "
+        .. "watches your team's score value. Score up = goal. Ball re-dropped without your "
+        .. "score moving = someone cleared it, retry now. Score down = new match, start over. "
+        .. "Nothing in that loop is on a timer.",
+})
+
+Tabs.Info:AddParagraph({
+    Title = "The team trap",
+    Content = "The server keeps a Team StringValue inside your character while you are in a "
+        .. "match. No Team means you are a spectator and every goal you score is thrown away "
+        .. "silently - the ball goes in, nothing counts. When a match ends the server puts you "
+        .. "back on the lobby side of JoinPortal, and JoinPortal is what assigns teams: "
+        .. "teleporting straight onto the pitch skips it, so you stay a spectator forever. "
+        .. "That is what was killing the farm after the first goal. It now refuses to shoot "
+        .. "without a team and physically walks back through the portal to get one.",
+})
+
+Tabs.Info:AddParagraph({
+    Title = "When it shoots",
+    Content = "The kickoff ball is dropped 25 studs above the centre spot and falls. The farm "
+        .. "parks you on its landing spot while it drops and fires the frame its height reaches "
+        .. "resting level, so the shot goes the instant the ball is playable rather than after "
+        .. "a guessed delay.",
+})
+
+Tabs.Info:AddParagraph({
+    Title = "Why there is no instant goal",
+    Content = "GoalEvent on its own does nothing - tested live, the score never moved. The "
+        .. "server only counts a goal that follows a KickBall it accepted, and it only accepts "
+        .. "a kick from whoever it thinks is on the ball. So every scoring path here wins "
+        .. "possession first.",
+})
+
+Tabs.Info:AddButton({
+    Title = "Unload",
+    Callback = function() if getgenv().LedZTF then getgenv().LedZTF.unload() end end,
+})
+
+Window:SelectTab(1)
+
+task.spawn(function()
+    task.wait(0.2)
+    pcall(function()
+        local gui = Fluent.GUI
+        if not gui then return end
+        for _, f in ipairs(gui:GetChildren()) do
+            if f:IsA("Frame") and f.AbsoluteSize.X == winW and f.AbsoluteSize.Y == winH then
+                f.AnchorPoint = Vector2.new(0.5, 0.5)
+                f.Position = UDim2.fromScale(0.5, 0.5)
+                break
+            end
+        end
+    end)
+end)
+
+local barGui
+do
+    local parent = (gethui and gethui()) or LP:FindFirstChildOfClass("PlayerGui")
+    barGui = Instance.new("ScreenGui")
+    barGui.Name = "LedZBar"
+    barGui.ResetOnSpawn = false
+    barGui.IgnoreGuiInset = true
+    barGui.DisplayOrder = 9999
+    barGui.Enabled = cfg.touchBar
+    barGui.Parent = parent
+
+    local scale = small and 1.3 or 1
+    local bw, bh = math.floor(62 * scale), math.floor(40 * scale)
+    local rows = 5
+    local frameH = (bh + 6) * rows + 10
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.fromOffset(bw + 14, frameH)
+    frame.Position = UDim2.new(0, 10, 0.5, -frameH / 2)
+    frame.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
+    frame.BackgroundTransparency = 0.12
+    frame.BorderSizePixel = 0
+    frame.Active = true
+    frame.Draggable = true
+    frame.Parent = barGui
+    Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
+
+    local list = Instance.new("UIListLayout", frame)
+    list.Padding = UDim.new(0, 6)
+    list.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    list.VerticalAlignment = Enum.VerticalAlignment.Center
+
+    local buttons = {}
+    local function addBtn(text, onClick)
+        local b = Instance.new("TextButton")
+        b.Size = UDim2.fromOffset(bw, bh)
+        b.BackgroundColor3 = Color3.fromRGB(38, 38, 46)
+        b.BorderSizePixel = 0
+        b.Text = text
+        b.TextColor3 = Color3.fromRGB(235, 235, 240)
+        b.TextSize = math.floor(13 * scale)
+        b.Font = Enum.Font.GothamBold
+        b.AutoButtonColor = true
+        b.Parent = frame
+        Instance.new("UICorner", b).CornerRadius = UDim.new(0, 8)
+        b.Activated:Connect(onClick)
+        buttons[text] = b
+        return b
+    end
+
+    addBtn("MENU", function()
+        if Fluent.GUI then Fluent.GUI.Enabled = not Fluent.GUI.Enabled end
+    end)
+    addBtn("AUTO", function() Options.AutoGoal:SetValue(not cfg.autoGoal) end)
+    addBtn("MAG",  function() Options.Magnet:SetValue(not cfg.magnet) end)
+    addBtn("SNAP", function() snapGoal() end)
+    addBtn("FARM", function() Options.AfkFarm:SetValue(not cfg.afkFarm) end)
+
+    local ON  = Color3.fromRGB(46, 132, 74)
+    local OFF = Color3.fromRGB(38, 38, 46)
+    task.spawn(function()
+        while S.alive() and barGui.Parent do
+            buttons.AUTO.BackgroundColor3 = cfg.autoGoal and ON or OFF
+            buttons.MAG.BackgroundColor3  = cfg.magnet and ON or OFF
+            buttons.SNAP.BackgroundColor3 = snapping and ON or OFF
+            buttons.FARM.BackgroundColor3 = cfg.afkFarm and ON or OFF
+            task.wait(0.2)
+        end
+    end)
+end
+
+task.spawn(function()
+    while S.alive() and not Fluent.Unloaded do
+        local ball = getBall()
+        local line = ("mode %d | team %s (%s) | ball %s | %s"):format(
+            C.mode or 0, myLetter(), myTeamName(), ball and "yes" or "no", stats.lastMsg)
+        local farmLine = ("team %s  |  goals %d  |  tries %d  |  refused %d  |  rejoins %d  |  %s")
+            :format(hasTeam() and myTeamName() or "NONE (spectator)",
+                stats.goals, stats.attempts, stats.refused, stats.rejoins,
+                cfg.afkFarm and "RUNNING" or "stopped")
+        if not pcall(function() statusPara:SetDesc(line) end) then
+            pcall(function() statusPara:SetTitle("Status - " .. stats.lastMsg) end)
+        end
+        if not pcall(function() farmPara:SetDesc(farmLine) end) then
+            pcall(function() farmPara:SetTitle(farmLine) end)
+        end
+        task.wait(0.5)
+    end
+end)
+
+S.connect(UserInputService.InputBegan, function(input, gpe)
+    if gpe or UserInputService:GetFocusedTextBox() then return end
+    local k = input.KeyCode
+    if k == Enum.KeyCode.RightAlt then
+        Options.AutoGoal:SetValue(not cfg.autoGoal)
+    elseif k == Enum.KeyCode.RightShift then
+        Options.Magnet:SetValue(not cfg.magnet)
+    elseif k == Enum.KeyCode.V then
+        snapGoal()
+    elseif k == Enum.KeyCode.Insert then
+        Options.AfkFarm:SetValue(not cfg.afkFarm)
+    elseif k == Enum.KeyCode.Delete then
+        if getgenv().LedZTF then getgenv().LedZTF.unload() end
+    end
+end)
+
+task.spawn(function()
+    while S.alive() do
+        if cfg.afkFarm and not farmThread then
+            stats.lastMsg = "farm: restarting worker"
+            startFarm()
+        end
+        task.wait(2)
+    end
+end)
+
+local function unload()
+    cfg.autoGoal, cfg.magnet, cfg.afkFarm = false, false, false
+    cfg.speedHack, cfg.sprint = false, false
+    hideAll()
+    for _, d in ipairs(drawings) do pcall(function() d:Remove() end) end
+    pcall(function() Fluent:Destroy() end)
+    pcall(function() barGui:Destroy() end)
+    local c = LP.Character
+    local h = c and c:FindFirstChildOfClass("Humanoid")
+    if h then pcall(function() h.WalkSpeed = 16 end) end
+    getgenv().LedZTF = nil
+end
+
+getgenv().LedZTF = { cfg = cfg, stats = stats, Fluent = Fluent, Window = Window,
+    Bar = barGui, C = C, unload = unload, snapGoal = snapGoal, startFarm = startFarm }
+getgenv().JuniorOP = nil
+
+S.onCleanup(unload)
+
+Fluent:Notify({
+    Title = "LedZ Touch Football",
+    Content = "Loaded. Farm tab = AFK goal farm.",
+    SubContent = "team " .. myLetter() .. " | mode " .. tostring(C.mode),
+    Duration = 6,
+})
+
+end
+
+local checking = false
+
+local function verify()
+    if checking then return end
+    checking = true
+    local entered = input.Text:gsub("%s+", "")
+    continueBtn.Text = "Checking..."
+    task.wait(0.4)
+
+    if entered == KEY then
+        continueBtn.Text = "Verified"
+        status.Text = "Access granted"
+        task.wait(0.35)
+        closeKey()
+        task.spawn(function()
+            local ok, err = pcall(launch)
+            if not ok then warn(err) end
+        end)
+    else
+        continueBtn.Text = "Continue"
+        status.Text = "Invalid key"
+        boxStroke.Transparency = 0.2
+        task.spawn(shake)
+        task.delay(1.6, function()
+            status.Text = ""
+            boxStroke.Transparency = 0.7
+        end)
+        checking = false
+    end
+end
+
+continueBtn.MouseButton1Click:Connect(verify)
+input.FocusLost:Connect(function(enter)
+    if enter then verify() end
+end)
